@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Demo Project">
+<meta name="author" content="Programación en Web">
+
+
+<title>TechLive</title>
+
+<link rel="shortcut icon" th:href="@{/images/LogoTL.png}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/fontawesome.css}">
+<link rel="stylesheet" th:href="@{/css/catalog.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
+<link rel="stylesheet" th:href="@{/css/countdown.css}">
+<link rel="stylesheet" th:href="@{/css/PView.css}">
+
+
+</head>
+<body>
+
+	<header th:fragment="header">
+
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+			<div class="container mt-0">
+				<!-- Brand -->
+				<a class="navbar-brand" href="/"><img src="/images/LogoTL.png"
+					width="30" height="30" class="d-inline-block align-top mr-2" alt="">TechLive</a>
+
+				<!-- Toggler/collapsibe Button -->
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<form th:action="@{/products/search}"
+					class="form-inline my-2 my-lg-0" autocomplete="off">
+					<div class="sb-example-3">
+
+						<input type="text" name="keyword" id="keyword" size="40"
+							th:value="${keyword}" class=" mr-sm-2 search__input"
+							placeholder="Search"> <span
+							class="fal fa-search searchico mr-4"></span>
+
+					</div>
+
+				</form>
+
+
+				<!-- Navbar links -->
+				<div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+
+
+
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item"><a class="nav-link" href="/catalog"><i
+								class="fas fa-stream mr-1"></i>Cat&aacute;logo</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><i
+								class="far fa-user mr-1"></i>Cuenta</a></li>
+						<li class="nav-item "><a class="nav-link" href="#"><i
+								class="fas fa-truck mr-1"></i>Pedidos</a></li>
+						<li class="nav-item "><a class="nav-link" href="/cart"><i
+								class="fas fa-shopping-cart mr-1"></i>Carrito <span
+								class="badge badge-danger ml-1" style="position: absolute;">3</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+
+
+	</header>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-6">
+					<h6>ABOUT</h6>
+					<p class="text-justify">
+						<i>TechLive Store </i> Nuestra intencion es conectar a las
+						empresas que quieran ofrecer productos de tecnologia con diversos
+						tipos de clientes quienes necesiten abastecer necesidades
+						tecnologicas de una manera eficaz y confiable.
+					</p>
+				</div>
+
+				<div class="col-xs-6 col-md-3">
+					<h6>Categorias</h6>
+					<ul class="footer-links">
+						<li><a href="http://www.google.com">Procesadores</a></li>
+						<li><a href="http://www.google.com">Tarjetas de Video</a></li>
+						<li><a href="http://www.google.com">Placas Madre</a></li>
+						<li><a href="http://www.google.com">Memorias RAM</a></li>
+						<li><a href="http://www.google.com">Memorias HDD</a></li>
+						<li><a href="http://www.google.com">Memorias SSD</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-6 col-md-3">
+					<h6>Quick Links</h6>
+					<ul class="footer-links">
+						<li><a href="http://scanfcode.com/about/">About Us</a></li>
+						<li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
+						<li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
+						<li><a href="http://scanfcode.com/privacy-policy/">Privacy
+								Policy</a></li>
+						<li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+					</ul>
+				</div>
+			</div>
+			<hr>
+
+			<!-- Call to action -->
+			<ul class="list-unstyled list-inline text-white text-center py-2">
+				<li class="list-inline-item">
+					<h5 class="mb-1">Register for free</h5>
+				</li>
+				<li class="list-inline-item"><a href="#!"
+					class="btn btn-danger btn-rounded text-white">Sign up!</a></li>
+			</ul>
+			<!-- Call to action -->
+
+			<hr>
+
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-12">
+					<p class="copyright-text">
+						Copyright &copy; 2020 All Rights Reserved by <a href="#">TechLive</a>.
+					</p>
+				</div>
+
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<ul class="social-icons">
+						<li><a class="facebook" href="#"><i
+								class="fab fa-facebook"></i></a></li>
+						<li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+						<li><a class="dribbble" href="#"><i
+								class="fab fa-dribbble"></i></a></li>
+						<li><a class="linkedin" href="#"><i
+								class="fab fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<footer th:fragment="footer">
+
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.js}"></script>
+		<script th:src="@{/js/fontawesome.min.js}"></script>
+		<script th:src="@{/js/countdown.js}"></script>
+		<script th:src="@{/js/catalog.js}"></script>
+	</footer>
+</body>
+</html>

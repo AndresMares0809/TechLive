@@ -1,0 +1,55 @@
+.cantidad {
+	padding: 0.375rem 0.75rem;
+	margin-top: auto;
+	margin-bottom: auto;
+	background-color: white;
+	border: 1px solid black;
+}
+
+.cantidad input {
+	-webkit-appearance: none;
+	border: none;
+	text-align: center;
+	width: 32px;
+	font-size: 16px;
+	color: #43484D;
+	font-weight: 300;
+	background-color: transparent;
+}
+
+.cantidad button {
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+}
+
+.icon-visa {
+	background-image: url(/images/productos/sprite.png);
+	background-position: -58px -46px;
+	width: 48px;
+	height: 15px;
+}
+
+.icon-master {
+	background-image: url(/images/productos/sprite.png);
+	background-position: -73px -137px;
+	width: 32px;
+	height: 25px;
+}
+
+.icon-american {
+	background-image: url(/images/productos/sprite.png);
+	background-position: -202px -55px;
+	width: 20px;
+	height: 20px;
+}
+
+.icon-diners {
+	background-image: url(/images/productos/sprite.png);
+	background-position: -35px -137px;
+	width: 38px;
+	height: 27px;
+}
