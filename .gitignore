@@ -4,8 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-src/main/resources/application.yml
-pom.xml
+
 
 ### STS ###
 .apt_generated
