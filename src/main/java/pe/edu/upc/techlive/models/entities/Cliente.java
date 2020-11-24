@@ -1,5 +1,6 @@
 package pe.edu.upc.techlive.models.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -7,22 +8,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="cliente")
+@Table(name="clientes")
 public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer id;
 	
-	@OneToOne
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario; 
+	@Column(name = "apellidos", length = 40, nullable = false)
+	private String apellidos;
+	
+	@Column(name = "nombres", length = 40, nullable = false)
+	private String nombres;
 	
 	@Column(name = "dni", length = 30, nullable = true)
 	private String dni;
@@ -30,8 +35,19 @@ public class Cliente {
 	@Column(name = "ruc", length = 30, nullable = true)
 	private String ruc;
 	
+	@Column(name = "celular", length = 9, nullable = false)
+	private String celular;
+	
 	@Column(name = "direccion", length = 30, nullable = false)
 	private String direccion;
+	
+	@Column(name = "correo", length = 40, nullable = false)
+	private String correo;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "fecha_nacimiento")
+	@Temporal(TemporalType.DATE)
+	private Date fechaNacimiento;
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
@@ -74,6 +90,46 @@ public class Cliente {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	

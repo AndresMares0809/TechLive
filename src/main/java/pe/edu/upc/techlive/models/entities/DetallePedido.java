@@ -35,6 +35,9 @@ public class DetallePedido {
 	@Column(name = "precio", nullable = false)
 	private Double precio;
 	
+	@Column(name = "is_confirmed")
+	private Boolean isConfirmed;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -74,6 +77,14 @@ public class DetallePedido {
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
+	}
+
+	public Boolean getIsConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setIsConfirmed(Boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
 	}
 
 	

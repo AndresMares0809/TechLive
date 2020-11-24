@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+<title>Techlive - Template</title>
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<main>
+		<section class="container">
+			<div class="card" style="width: 18rem;" th:switch="${segmento}">
+				<img src="..." class="card-img-top" alt="...">
+				<div class="card-body" >
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+				</div>
+				<ul class="list-group list-group-flush" th:case="'CLIENTE'">
+					<li class="list-group-item">Apellidos y Nombres: <span th:text="${cliente.apellidos}"></span>,
+								<span th:text="${cliente.nombres}"></span></li>
+					<li class="list-group-item">Direcci&oacute;n: <span th:text="${cliente.direccion}"></span></li>
+					<li class="list-group-item">Celular: <span th:text="${cliente.celular}"></span></li>
+					<li class="list-group-item">Correo Electr&oacute;nico: <span th:text="${cliente.correo}"></span></li>
+				</ul>
+				<ul class="list-group list-group-flush" th:case="'VENDEDOR'">
+					<li class="list-group-item">Nombre: <span th:text="${vendedor.nombre}"></span></li>
+					<li class="list-group-item">Direcci&oacute;n: <span th:text="${vendedor.direccion}"></span></li>
+					<li class="list-group-item">Contacto: <span th:text="${vendedor.contacto}"></span></li>
+					<li class="list-group-item">Celular: <span th:text="${vendedor.celular}"></span></li>
+				</ul>
+			</div>
+
+			
+		</section>
+	</main>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

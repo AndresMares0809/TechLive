@@ -5893,7 +5893,7 @@ a.close.disabled {
   pointer-events: none;
 }
 
-.toast {
+/*.toast {
   -ms-flex-preferred-size: 350px;
   flex-basis: 350px;
   max-width: 350px;
@@ -5939,7 +5939,7 @@ a.close.disabled {
 
 .toast-body {
   padding: 0.75rem;
-}
+}*/
 
 .modal-open {
   overflow: hidden;

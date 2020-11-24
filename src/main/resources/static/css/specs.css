@@ -1,0 +1,10 @@
+.specs {
+	border-bottom: 1px solid #E1E8EE;
+	background-color: gray;
+	color: white;
+	border-radius: 0.25rem;
+}
+
+.spec {
+	font-weight: 100;
+}

@@ -12,16 +12,40 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import pe.edu.upc.techlive.models.entities.DetallePedido;
+import pe.edu.upc.techlive.models.entities.Pedido;
 import pe.edu.upc.techlive.models.entities.Producto;
+import pe.edu.upc.techlive.models.services.DetallePedidoService;
 import pe.edu.upc.techlive.models.services.ProductoService;
 
 @Controller
 @RequestMapping("/products")
+@SessionAttributes("{contador}")
 public class ProductoController {
+	
+	
     @Autowired
     private ProductoService productoService;
+    
+    @Autowired
+    private DetallePedidoService detalleService;
+    
+  
+    
+    public void uwu(Model model) {
+    	Integer contador;
+		try {
+			contador = detalleService.countByIsConfirmed(false);
+			model.addAttribute("contador", contador);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+    }
      
     @GetMapping("search")
     public String viewHomePage(Model model, @Param("keyword") String keyword) {
@@ -30,6 +54,8 @@ public class ProductoController {
 			 List<Producto> productos = productoService.findByTag(keyword.toLowerCase());
 			 model.addAttribute("productos", productos);
 			 model.addAttribute("keyword", keyword);
+			Integer contador = detalleService.countByIsConfirmed(false);
+			model.addAttribute("contador", contador);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,12 +69,15 @@ public class ProductoController {
 		try {
 			Optional<Producto> optional = productoService.findById(id);
 			if(optional.isPresent()) {
+				String[] especificaciones = optional.get().getEspecificaciones().split("-");
+				model.addAttribute("especificaciones", especificaciones);
 				model.addAttribute("producto", optional.get());
 				DetallePedido detallePedido = new DetallePedido();
 				detallePedido.setPrecio(optional.get().getPrecioVenta());
 				detallePedido.setProducto(optional.get());
-				detallePedido.setCantidad(1);;
-				
+				detallePedido.setCantidad(1);
+				Integer contador = detalleService.countByIsConfirmed(false);
+				model.addAttribute("contador", contador);
 				model.addAttribute("detallePedido", detallePedido);
 			
 			}
@@ -61,10 +90,18 @@ public class ProductoController {
     @PostMapping("add")
 	public String add(@ModelAttribute("detallePedido") DetallePedido detalle,
 			Model model) {
-		System.out.println(detalle.getCantidad());
-		System.out.println(detalle.getProducto().getPrecioVenta());
-		System.out.println(detalle.getProducto().getCategoria().getDenominacion());
-		return "redirect:/";
+    	Pedido pedido = new Pedido();
+    	pedido.setId(1);
+    	detalle.setPedido(pedido);
+    	
+		detalle.setIsConfirmed(false);
+		detalle.setPrecio(detalle.getProducto().getPrecioVenta() * detalle.getCantidad());
+		try {
+			detalleService.save(detalle);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/catalog";
 	}
     
    

@@ -1,102 +1,103 @@
 package pe.edu.upc.techlive.models.entities;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import pe.edu.upc.techlive.utils.Segmento;
 
 @Entity
 @Table(name="usuarios")
 public class Usuario {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
-	@Column(name = "nombre", length = 30, nullable = false)
-	private String nombre;
+	@Column(length = 30, nullable = false)
+	private String username;
 	
-	@Column(name = "apellido", length = 30, nullable = false)
-	private String apellido;
+	@Column(length = 60, nullable = false)
+	private String password;
 	
-	@Column(name = "correo", length = 30, nullable = false)
-	private String correo;
+	private boolean enable;
 	
-	@Column(name = "contrase�a", length = 30, nullable = false)
-	private String contraseña;
+	@Column(name = "segmento", nullable = false)
+	private Segmento segmento; 
 	
+	@Column(name = "id_segmento", nullable = false)
+	private Integer idSegmento;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_nacimiento")
-	private Date fechaNacimiento;
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Authority> authorities;
 	
-	@Column(name = "telefono", length = 30, nullable = false)
-	private String telefono;
-	
-
-	public Integer getId() {
+	public Usuario() {
+		this.enable = true;
+		this.authorities = new ArrayList<>();
+	}
+	public Usuario( String username, String password ) {
+		this.username = username;
+		this.password = password;
+		this.enable = true;
+		this.authorities = new ArrayList<>();
+	}
+	public void addAuthority( String auth ) {
+		Authority authority = new Authority();
+		authority.setAuthority( auth ) ;
+		authority.setUsuario( this );
+		
+		this.authorities.add( authority );
+	}
+	public long getId() {
 		return id;
 	}
-
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getNombre() {
-		return nombre;
+	public String getUsername() {
+		return username;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
-	public String getApellido() {
-		return apellido;
+	public String getPassword() {
+		return password;
 	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
-	public String getCorreo() {
-		return correo;
+	public boolean isEnable() {
+		return enable;
 	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
-
-	public String getContraseña() {
-		return contraseña;
+	public List<Authority> getAuthorities() {
+		return authorities;
 	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
-
-
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public Segmento getSegmento() {
+		return segmento;
 	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setSegmento(Segmento segmento) {
+		this.segmento = segmento;
 	}
-
-	public String getTelefono() {
-		return telefono;
+	public Integer getIdSegmento() {
+		return idSegmento;
 	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setIdSegmento(Integer idSegmento) {
+		this.idSegmento = idSegmento;
 	}
-
 	
 	
 }
