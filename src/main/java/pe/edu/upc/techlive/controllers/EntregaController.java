@@ -60,4 +60,19 @@ public class EntregaController {
 		}
 		return "redirect:/entregas/view";
 	}
+	
+	@GetMapping("{id}/entregar")
+	public String deliver(@PathVariable("id") Integer id, Model model) {
+	
+		
+		try {
+			Optional<Pedido> pedido = pedidoService.findById(id);
+			pedido.get().setEstadoPedido(EstadoPedido.ENTREGADO);
+			pedidoService.update(pedido.get());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/entregas/view";
+	}
 }
