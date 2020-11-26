@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-
 import pe.edu.upc.techlive.models.entities.DetallePedido;
-import pe.edu.upc.techlive.models.entities.Pedido;
 import pe.edu.upc.techlive.models.entities.Producto;
+import pe.edu.upc.techlive.models.services.ClienteService;
 import pe.edu.upc.techlive.models.services.DetallePedidoService;
 import pe.edu.upc.techlive.models.services.ProductoService;
+import pe.edu.upc.techlive.security.UsuarioDetails;
 
 @Controller
 @RequestMapping("/products")
@@ -33,29 +35,22 @@ public class ProductoController {
     @Autowired
     private DetallePedidoService detalleService;
     
-  
+    @Autowired
+    private ClienteService clienteService;
     
-    public void uwu(Model model) {
-    	Integer contador;
-		try {
-			contador = detalleService.countByIsConfirmed(false);
-			model.addAttribute("contador", contador);
-		} catch (Exception e) {
 
-			e.printStackTrace();
-		}
-		
-    }
-     
+ 
     @GetMapping("search")
     public String viewHomePage(Model model, @Param("keyword") String keyword) {
-       
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UsuarioDetails usuarioDetails = (UsuarioDetails)authentication.getPrincipal();
+		
 		try {
 			 List<Producto> productos = productoService.findByTag(keyword.toLowerCase());
 			 model.addAttribute("productos", productos);
 			 model.addAttribute("keyword", keyword);
-			Integer contador = detalleService.countByIsConfirmed(false);
-			model.addAttribute("contador", contador);
+			 Integer contador = detalleService.countByClienteAndIsConfirmed(usuarioDetails.getIdSegmento(), false);
+				model.addAttribute("contador", contador);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,6 +61,9 @@ public class ProductoController {
     
     @GetMapping("{tag}-{id}/p")
 	public String view(@PathVariable("id") Integer id, Model model) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UsuarioDetails usuarioDetails = (UsuarioDetails)authentication.getPrincipal();
+		
 		try {
 			Optional<Producto> optional = productoService.findById(id);
 			if(optional.isPresent()) {
@@ -76,7 +74,7 @@ public class ProductoController {
 				detallePedido.setPrecio(optional.get().getPrecioVenta());
 				detallePedido.setProducto(optional.get());
 				detallePedido.setCantidad(1);
-				Integer contador = detalleService.countByIsConfirmed(false);
+				Integer contador = detalleService.countByClienteAndIsConfirmed(usuarioDetails.getIdSegmento(), false);
 				model.addAttribute("contador", contador);
 				model.addAttribute("detallePedido", detallePedido);
 			
@@ -90,13 +88,16 @@ public class ProductoController {
     @PostMapping("add")
 	public String add(@ModelAttribute("detallePedido") DetallePedido detalle,
 			Model model) {
-    	Pedido pedido = new Pedido();
-    	pedido.setId(1);
-    	detalle.setPedido(pedido);
+    
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UsuarioDetails usuarioDetails = (UsuarioDetails)authentication.getPrincipal();
+		
     	
-		detalle.setIsConfirmed(false);
-		detalle.setPrecio(detalle.getProducto().getPrecioVenta() * detalle.getCantidad());
+		
 		try {
+			detalle.setIsConfirmed(false);
+			detalle.setCliente(clienteService.findById(usuarioDetails.getIdSegmento()).get());
+			detalle.setPrecio(detalle.getProducto().getPrecioVenta() * detalle.getCantidad());
 			detalleService.save(detalle);
 		} catch (Exception e) {
 			e.printStackTrace();

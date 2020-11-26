@@ -123,14 +123,15 @@
 										class="fa fa-shopping-cart"></i></a></li>
 							</ul>
 						</div>
-						<div class="card-body" style="padding-bottom: 0">
+						<div class="card-body">
 							<p class="mb-0 text-muted" style="font-size: 13px"
 								th:text="${producto.categoria.denominacion}"></p>
 							<p class="text-muted text-truncate" style="font-size: 16px; margin: 0">
 								<a
 									th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }"
 									class="text-reset text-decoration-none font-weight-bold"
-									th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></a>
+									th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"
+									data-toggle="tooltip" data-placement="bottom" th:title="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></a>
 							</p>
 							<div class="d-flex" style="font-size: 14px; margin-bottom: 5px">
 								<div>Precio:</div>

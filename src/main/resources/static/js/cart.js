@@ -10,7 +10,22 @@ $('.minus-bttn').on('click', function(e) {
 		value = 0;
 	}
 	
+	var productRow = $(this).parent().parent();
+	
+	if (document.getElementById("id")){
+	var detalle = {
+		id: productRow.children('.id').text(),
+		cant: value
+	}
 
+	$.ajax({
+		type: "GET",
+        url: "/cart/update",
+        data: detalle,
+	});
+
+	}
+	
 	$input.val(value);
 	updateQuantity($input);
 	
@@ -29,6 +44,21 @@ $('.plus-bttn').on('click', function(e) {
 		value = 100;
 	}
 
+	var productRow = $(this).parent().parent();
+	
+	if (document.getElementById("id")){
+	var detalle = {
+		id: productRow.children('.id').text(),
+		cant: value
+	}
+
+	$.ajax({
+		type: "GET",
+        url: "/cart/update",
+        data: detalle,
+	});
+
+	}
 	$input.val(value);
 	updateQuantity($input);
 });
@@ -119,9 +149,11 @@ function removeItem(removeButton)
 		id: productRow.children('.id').text()
 	}
 
-	toastr["success"]("Elemento eliminado!")
+	toastr["success"]("Elemento eliminado!");
 	
+	document.getElementById("contador").innerHTML = (parseInt(document.getElementById("contador").textContent)-1).toString();
 
+	
  	productRow.slideUp(fadeTime, function() {
 	$.ajax({
 		type: "GET",

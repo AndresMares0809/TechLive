@@ -1,37 +1,143 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout/layout :: head">
-<title>Techlive - Template</title>
+<head>
+<link rel="stylesheet" th:href="@{/css/profile.css}">
+
+<title>Perfil de usuario</title>
 </head>
+<head th:replace="layout/layout :: head"></head>
+
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<main>
-		<section class="container">
-			<div class="card" style="width: 18rem;" th:switch="${segmento}">
-				<img src="..." class="card-img-top" alt="...">
-				<div class="card-body" >
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
+		<div class="page-content page-container" id="page-content">
+			<div class="padding">
+				<div class="row container d-flex ml-auto mr-auto">
+					<div class="col-md-12">
+						<div class="card user-card-full" th:switch="${segmento}">
+							<div class="row m-l-0 m-r-0" th:case="'CLIENTE'">
+								<div class="col-sm-2 bg-c-lite-green user-profile">
+									<div class="card-block text-center text-white">
+										<div class="m-b-25">
+											<img src="https://img.icons8.com/bubbles/100/000000/user.png"
+												class="img-radius" alt="User-Profile-Image">
+										</div>
+										<h6 class="f-w-600">Usuario</h6>
+										<p>Cliente</p>
+										<i class="fas fa-edit"></i>
+									</div>
+								</div>
+								<div class="col-sm-10">
+									<div class="card-block">
+										<h6 class="m-b-20 p-b-5 b-b-default">Informacion personal</h6>
+										<div class="row">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Nombres</p>
+												<h6 class="text-muted f-w-400" th:text="${cliente.nombres}"></h6>
+											</div>
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Apellidos</p>
+												<h6 class="text-muted f-w-400"
+													th:text="${cliente.apellidos}"></h6>
+											</div>
+										</div>
+										<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Datos</h6>
+										<div class="row">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Correo</p>
+												<h6 class="text-muted f-w-400" th:text="${cliente.correo}"></h6>
+											</div>
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Direcci&oacute;n</p>
+												<h6 class="text-muted f-w-400"
+													th:text="${cliente.direccion}"></h6>
+											</div>
+										</div>
+										<div class="row mt-4">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Celular</p>
+												<h6 class="text-muted f-w-400" th:text="${cliente.celular}"></h6>
+											</div>
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">DNI</p>
+												<h6 class="text-muted f-w-400" th:text="${cliente.dni}"></h6>
+											</div>
+										</div>
+										<ul class="social-icons mt-4">
+											<li><a class="facebook" href="#"><i
+													class="fab fa-facebook"></i></a></li>
+											<li><a class="twitter" href="#"><i
+													class="fab fa-twitter"></i></a></li>
+											<li><a class="dribbble" href="#"><i
+													class="fab fa-instagram"></i></a></li>
+											<li><a class="linkedin" href="#"><i
+													class="fab fa-linkedin"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="row m-l-0 m-r-0" th:case="'VENDEDOR'">
+								<div class="col-sm-2 bg-c-lite-green user-profile">
+									<div class="card-block text-center text-white">
+										<div class="m-b-25">
+											<img src="https://img.icons8.com/bubbles/100/000000/user.png"
+												class="img-radius" alt="User-Profile-Image">
+										</div>
+										<h6 class="f-w-600">Usuario</h6>
+										<p>Vendedor</p>
+										<i class="fas fa-edit"></i>
+									</div>
+								</div>
+										<div class="col-sm-10">
+									<div class="card-block">
+										<h6 class="m-b-20 p-b-5 b-b-default">Informacion personal</h6>
+										<div class="row">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Nombre</p>
+												<h6 class="text-muted f-w-400" th:text="${vendedor.nombre}"></h6>
+											</div>
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">RUC</p>
+												<h6 class="text-muted f-w-400" th:text="${vendedor.ruc}"></h6>
+											</div>
+										</div>
+										<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Datos</h6>
+										<div class="row">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Contacto</p>
+												<h6 class="text-muted f-w-400" th:text="${vendedor.contacto}"></h6>
+											</div>
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Direcci&oacute;n</p>
+												<h6 class="text-muted f-w-400" th:text="${vendedor.direccion}"></h6>
+											</div>
+										</div>
+										<div class="row mt-4">
+											<div class="col-sm-6">
+												<p class="m-b-10 f-w-600">Celular</p>
+												<h6 class="text-muted f-w-400" th:text="${vendedor.celular}"></h6>
+											</div>
+											
+										</div>
+										<ul class="social-icons mt-4">
+											<li><a class="facebook" href="#"><i
+													class="fab fa-facebook"></i></a></li>
+											<li><a class="twitter" href="#"><i
+													class="fab fa-twitter"></i></a></li>
+											<li><a class="dribbble" href="#"><i
+													class="fab fa-instagram"></i></a></li>
+											<li><a class="linkedin" href="#"><i
+													class="fab fa-linkedin"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<ul class="list-group list-group-flush" th:case="'CLIENTE'">
-					<li class="list-group-item">Apellidos y Nombres: <span th:text="${cliente.apellidos}"></span>,
-								<span th:text="${cliente.nombres}"></span></li>
-					<li class="list-group-item">Direcci&oacute;n: <span th:text="${cliente.direccion}"></span></li>
-					<li class="list-group-item">Celular: <span th:text="${cliente.celular}"></span></li>
-					<li class="list-group-item">Correo Electr&oacute;nico: <span th:text="${cliente.correo}"></span></li>
-				</ul>
-				<ul class="list-group list-group-flush" th:case="'VENDEDOR'">
-					<li class="list-group-item">Nombre: <span th:text="${vendedor.nombre}"></span></li>
-					<li class="list-group-item">Direcci&oacute;n: <span th:text="${vendedor.direccion}"></span></li>
-					<li class="list-group-item">Contacto: <span th:text="${vendedor.contacto}"></span></li>
-					<li class="list-group-item">Celular: <span th:text="${vendedor.celular}"></span></li>
-				</ul>
 			</div>
-
-			
-		</section>
+		</div>
 	</main>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

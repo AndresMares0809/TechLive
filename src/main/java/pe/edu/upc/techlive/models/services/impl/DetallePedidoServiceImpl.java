@@ -55,9 +55,20 @@ public class DetallePedidoServiceImpl implements DetallePedidoService, Serializa
 		return detallePedidoRepository.findByIsConfirmedFalse();
 	}
 
+
 	@Override
-	public Integer countByIsConfirmed(Boolean isConfirmed) throws Exception {
-		return detallePedidoRepository.countByIsConfirmed(isConfirmed);
+	public List<DetallePedido> findByClienteAndConfirmed(Integer id, Boolean isConfirmed) throws Exception {
+		return detallePedidoRepository.findByClienteAndConfirmed(id, isConfirmed);
+	}
+
+	@Override
+	public Integer countByClienteAndIsConfirmed(Integer id, Boolean isConfirmed) throws Exception {
+		return detallePedidoRepository.countByClienteAndIsConfirmed(id, isConfirmed);
+	}
+
+	@Override
+	public List<DetallePedido> findByVendedorAndConfirmed(Integer id, Boolean isConfirmed) throws Exception {
+		return detallePedidoRepository.findByVendedorAndConfirmed(id, isConfirmed);
 	}
 
 

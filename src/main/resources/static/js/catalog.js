@@ -5,5 +5,8 @@ $(document).ready(function() {
 	$(".precio-btn").click(function() {
 		$(".precio-btn .fa-chevron-down").toggleClass("rtoate180");
 	});
+	
 });
+
+
 

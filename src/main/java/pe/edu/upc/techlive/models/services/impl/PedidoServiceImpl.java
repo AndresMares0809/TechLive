@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.edu.upc.techlive.models.entities.Pedido;
 import pe.edu.upc.techlive.models.repositories.PedidoRepository;
 import pe.edu.upc.techlive.models.services.PedidoService;
+import pe.edu.upc.techlive.utils.EstadoPedido;
 
 @Service
 public class PedidoServiceImpl implements PedidoService, Serializable{
@@ -49,6 +50,18 @@ public class PedidoServiceImpl implements PedidoService, Serializable{
 	@Override
 	public Optional<Pedido> findById(Integer id) throws Exception {
 		return pedidoRepository.findById(id);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Pedido> findByClienteAndEstadoPedido(Integer id, EstadoPedido estado) throws Exception {
+		return pedidoRepository.findByClienteAndEstadoPedido(id, estado);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Pedido> findByCliente(Integer id) throws Exception {
+		return pedidoRepository.findByCliente(id);
 	}
 
 

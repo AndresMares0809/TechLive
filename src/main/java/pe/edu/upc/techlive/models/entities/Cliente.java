@@ -1,5 +1,6 @@
 package pe.edu.upc.techlive.models.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,13 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 
+	@OneToMany(mappedBy = "cliente")
+	private List<DetallePedido> detallePedidos;
+
+	public Cliente() {
+		pedidos = new ArrayList<>();
+		detallePedidos = new ArrayList<>();
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -130,6 +138,12 @@ public class Cliente {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+	public List<DetallePedido> getDetallePedidos() {
+		return detallePedidos;
+	}
+	public void setDetallePedidos(List<DetallePedido> detallePedidos) {
+		this.detallePedidos = detallePedidos;
 	}
 	
 	

@@ -1,3 +1,4 @@
+
 .container {
 	margin-top: 50px
 }
@@ -67,6 +68,7 @@ h3.h3 {
 	left: 0;
 	transition: all .5s
 }
+
 
 .product-grid2:hover .product-image2 .pic-2 {
 	opacity: 1

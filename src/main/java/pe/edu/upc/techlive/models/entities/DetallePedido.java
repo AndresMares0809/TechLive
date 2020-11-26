@@ -28,6 +28,10 @@ public class DetallePedido {
 	@JoinColumn(name = "producto_id")
 	private Producto producto;
 	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
 	
 	@Column(name = "cantidad", nullable = false)
 	private Integer cantidad;
@@ -85,6 +89,14 @@ public class DetallePedido {
 
 	public void setIsConfirmed(Boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	

@@ -8,21 +8,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.techlive.models.entities.Cliente;
-import pe.edu.upc.techlive.models.entities.Producto;
 import pe.edu.upc.techlive.models.entities.Vendedor;
 import pe.edu.upc.techlive.security.UsuarioDetails;
 import pe.edu.upc.techlive.models.services.ClienteService;
+import pe.edu.upc.techlive.models.services.DetallePedidoService;
 import pe.edu.upc.techlive.models.services.VendedorService;
 import pe.edu.upc.techlive.utils.Segmento;
 
 @Controller
 @RequestMapping("/perfil")
-@SessionAttributes("{producto}")
 public class PerfilController {
 	
 	@Autowired
@@ -31,13 +28,16 @@ public class PerfilController {
 	@Autowired
 	private VendedorService vendedorService;
 	
+	@Autowired
+	private DetallePedidoService detalleService;
+	
 	@GetMapping
-	public String perfil(@ModelAttribute("producto") Producto producto, Model model) {
-		// Obtener el usuarioDetails para obtener los datos de CLiente o proveedor
+	public String perfil( Model model) {
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UsuarioDetails usuarioDetails = (UsuarioDetails)authentication.getPrincipal();
 		
-		// Obtener los datos del CLiente o proveedor 
+	
 		try {
 			if(usuarioDetails.getSegmento() == Segmento.CLIENTE) {
 				Optional<Cliente> optional = clienteService.findById(usuarioDetails.getIdSegmento());
@@ -45,21 +45,24 @@ public class PerfilController {
 					model.addAttribute("segmento", "CLIENTE");
 					model.addAttribute("cliente", optional.get());
 				}
+				Integer contador = detalleService.countByClienteAndIsConfirmed(usuarioDetails.getIdSegmento(), false);
+				model.addAttribute("contador", contador);
 			} 
-			else if(usuarioDetails.getSegmento() == Segmento.PROVEEDOR) {
+			else if(usuarioDetails.getSegmento() == Segmento.VENDEDOR) {
+				
 				Optional<Vendedor> optional = vendedorService.findById(usuarioDetails.getIdSegmento());
 				if (optional.isPresent()) {
-					model.addAttribute("segmento", "PROVEEDOR");
-					model.addAttribute("proveedor", optional.get());
+					model.addAttribute("segmento", "VENDEDOR");
+					model.addAttribute("vendedor", optional.get());
 				}
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-				
-		model.addAttribute("producto", producto);
+			
 		return "perfil/perfil";
 	}
 }

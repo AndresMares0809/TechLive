@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<main>
+	<section class="container">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item">Cliente</li>
+		    <li class="breadcrumb-item" >Mis Pedidos</li>
+		    <li class="breadcrumb-item active" aria-current="page" >Detalle de pedido</li>
+		  </ol>
+		</nav>
+		
+		<div style="display:flex;">
+			<div th:each="detallePedido : ${pedido.detallePedidos}" class="card product-grid2" style="width: 18rem; margin:10px;">
+			  <img th:src="@{${detallePedido.producto.urlImage} + ${detallePedido.producto.id} + '.png'}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="${detallePedido.producto.categoria.denominacion}"></h6>
+						<h6 class="card-title text-truncate font-weight-bold" >
+							<span th:text="${detallePedido.producto.descripcion}"></span>
+						</h6>
+						<h6 class="card-subtitle mb-2 text-muted"
+							th:text="${detallePedido.producto.marca.nombre}"></h6>
+						<div class="d-flex">
+							<p>Precio unitario:</p>
+							<p class="card-text ml-auto"
+								th:text="'S/ ' + ${#numbers.formatDecimal(detallePedido.producto.precioVenta, 0, 2)}"></p>
+						</div>
+						<div class="d-flex">
+							<p>Cantidad:</p>
+							<p class="card-text ml-auto" th:text="${detallePedido.cantidad}"></p>
+						</div>
+						<div class="d-flex ">
+							<p class="mb-0">Precio total:</p>
+							<p class="card-text ml-auto"
+								th:text="'S/ ' + ${#numbers.formatDecimal(detallePedido.precio, 0, 2)}"></p>
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		
+	</section>
+	</main>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+
+</body>
+</html>
