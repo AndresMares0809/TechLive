@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+
+	<div class="container" style="padding-top: 40px;">
+		<div class="row">
+
+			<div class="col-lg-3">
+				<div class="list-group ">
+					<div
+						class="py-3 pl-4 rounded-pill mt-3 mb-3 d-flex align-items-center gris border">
+						<i class="fas fa-stream mr-2" style="font-size: 1.50rem;"></i>
+						<h3 class="mb-0">Cat&aacute;logo</h3>
+					</div>
+
+					<div class="p-3 mb-3  rounded gris border">
+						<h5 class=" pl-3 pb-2" style="border-bottom: 1px solid #E1E8EE;">Categor&iacute;as</h5>
+						<a href="/products/search?keyword=procesador"
+							class="list-group-item list-group-item-action ">Procesador </a> <a
+							href="/products/search?keyword=Tarjeta"
+							class="list-group-item list-group-item-action ">Tarjeta de
+							Video</a> <a href="/products/search?keyword=Placa"
+							class="list-group-item list-group-item-action ">Placa Madre</a> <a
+							href="/products/search?keyword=ram"
+							class="list-group-item list-group-item-action ">RAM</a><a
+							href="/products/search?keyword=ssd"
+							class="list-group-item list-group-item-action ">SSD</a> <a
+							href="/products/search?keyword=hdd"
+							class="list-group-item list-group-item-action ">HDD</a>
+					</div>
+					<div class="p-3 mb-3 rounded gris border">
+
+						<h6 class="pl-2 pb-2 ">
+							<i class="fas fa-sliders-h mr-1"></i>FILTROS
+						</h6>
+
+						<div class="marca-btn" role="button" data-toggle="collapse"
+							data-target="#marca-collapse" aria-expanded="false"
+							aria-controls="marca-collapse">
+							Marca<i class="fa fa-chevron-down "></i>
+						</div>
+
+
+
+						<div class="collapse show multi-collapse" id="marca-collapse">
+							<a href="/products/search?keyword=intel"
+								class="list-group-item list-group-item-action ">Intel </a> <a
+								href="/products/search?keyword=AMD"
+								class="list-group-item list-group-item-action ">AMD </a> <a
+								href="/products/search?keyword=Nvidia"
+								class="list-group-item list-group-item-action ">Nvidia</a> <a
+								href="/products/search?keyword=Kingston"
+								class="list-group-item list-group-item-action ">Kingston</a> <a
+								href="/products/search?keyword=HP"
+								class="list-group-item list-group-item-action ">HP</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-9 mb-5">
+
+
+
+				<h3 class="mt-5">
+					Resultado de la B&uacute;squeda: <span th:text="${keyword}"></span>
+				</h3>
+
+
+
+
+				<div class="d-flex card-deck flex-wrap">
+					<div class="card product-grid2" th:each="producto : ${productos}"
+						style="min-width: 200px; max-width: 285px">
+						<div class="product-image2">
+
+
+							<img th:src="@{${producto.urlImage} + ${producto.id} + '.png'}">
+
+							<ul class="social">
+								<li><a
+									th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }"
+									data-tip="View"><i class="fa fa-eye"></i></a></li>
+								<li><a href="#" data-tip="Add to Cart"><i
+										class="fa fa-shopping-cart"></i></a></li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<p class="mb-0 text-muted" style="font-size: 13px"
+								th:text="${producto.categoria.denominacion}"></p>
+							<p class="text-muted text-truncate"
+								style="font-size: 16px; margin: 0">
+								<a
+									th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }"
+									class="text-reset text-decoration-none font-weight-bold"
+									th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></a>
+							</p>
+							<div class="d-flex" style="font-size: 14px; margin-bottom: 5px">
+								<div>Precio:</div>
+								<div class="ml-auto"
+									th:text="'S/ ' + ${#numbers.formatDecimal(producto.precioVenta, 0, 'COMMA', 2, 'POINT')}">
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.col-lg-9 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

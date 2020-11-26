@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<title
+	th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></title>
+<head th:replace="layout/layout :: head">
+</head>
+<head>
+<link rel="stylesheet" th:href="@{/css/zoom.css}">
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+<link rel="stylesheet" th:href="@{/css/specs.css}">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<main>
+		<section class="container"
+			style="margin-top: 70px; margin-bottom: 70px;">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">Cat&aacute;logo</li>
+					<li class="breadcrumb-item"
+						th:text="${producto.categoria.denominacion}"></li>
+					<li class="breadcrumb-item" aria-current="page"
+						th:text="${producto.descripcion}"></li>
+				</ol>
+			</nav>
+
+			<form th:action="@{/products/add}" method="post"
+				th:object="${detallePedido}">
+				<input type="hidden" th:field="*{producto}" />
+				
+				<div class="row" style="padding: 0 7rem">
+					<div class="col-7">
+						<span class="zoom border rounded" id='ex2'> <img
+							th:src="@{${producto.urlImage} + ${producto.id} + '.png'}"
+							class="card-img-top">
+						</span>
+					</div>
+					<div class="col">
+						<div class="card gris  p-3" style="font-weight: 100;">
+							<div class="d-flex mt-2">
+								<div th:text="${producto.marca.nombre}"></div>
+								<div class="ml-auto" th:text="'ID: ' + ${producto.id}"></div>
+							</div>
+
+							<div class="font-weight-bold my-2"
+								th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"
+								style="font-size: 24px;"></div>
+							<div class="d-flex font-weight-bold my-2"
+								style="font-size: 18px;">
+								<div>Precio:</div>
+
+								<div class="ml-auto text-danger"
+									th:text="'S/ ' + ${#numbers.formatDecimal(producto.precioVenta, 0, 'COMMA', 2, 'POINT')}"></div>
+							</div>
+							<hr>
+							<div class="d-flex my-1">
+
+								<div class="cantidad px-0 mr-2">
+									<button class="minus-bttn" type="button" name="button">
+										<i class="fal fa-minus"></i>
+									</button>
+									<input type="text" th:field="*{cantidad}" readonly />
+									<button class="plus-bttn" type="button" name="button">
+										<i class="fal fa-plus"></i>
+									</button>
+								</div>
+								
+								<button type="submit" class="btn btn-danger"
+									style="padding: 0 29px;" id="btn">
+									<i class="fas fa-shopping-cart"></i> Agregar al Carrito
+								</button>
+							</div>
+							<div
+								class="d-flex justify-content-center align-items-center mt-3">
+								<i class="icon-visa mx-3"></i> <i class="icon-master mx-3"></i>
+								<i class="icon-american mx-3"></i> <i class="icon-diners mx-3"></i>
+
+							</div>
+						</div>
+
+
+						<div class="gris card mt-3 rounded">
+							<div class="specs" id="headingOne">
+								<div
+									class="btn btn-link d-flex align-items-center text-reset text-decoration-none"
+									role="button" data-toggle="collapse" data-target="#collapseOne">
+									Especificaciones<i class="fa fa-plus ml-auto"></i>
+								</div>
+							</div>
+							<div id="collapseOne" class="collapse show"
+								aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="card-body p-2 spec">
+									<div th:each="especificacion : ${especificaciones}">
+										<div th:text="'&centerdot; ' + ${especificacion}"></div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</form>
+
+
+		</section>
+	</main>
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script src='/js/jquery.zoom.js'></script>
+	<script src='/js/cart.js'></script>
+	<script src='/js/collapse.js'></script>
+	
+	<script>
+		$(document).ready(function(){
+			$('#ex1').zoom();
+			$('#ex2').zoom({ on:'grab' });
+			$('#ex3').zoom({ on:'click' });			 
+			$('#ex4').zoom({ on:'toggle' });
+	
+		
+		});
+		
+
+	
+	</script>
+</body>
+</html>

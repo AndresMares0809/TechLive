@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<title>Login</title>
+<head th:replace="layout/layout :: head">
+</head>
+<head>
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+
+
+
+
+
+	<div class="container">
+		<section id="formHolder">
+
+			<div class="row" >
+
+				<!-- Brand Box -->
+				<div class="col-sm-6 brand" >
+					<img class ="logoimg" src="/images/LogoTL.png">
+
+					<div class="heading">
+						<h2>TechLive</h2>
+						<p>Tu compra correcta</p>
+					</div>
+
+					<div class="success-msg">
+						<p>Great! You are one of our members now</p>
+						<a href="#" class="profile">Your Profile</a>
+					</div>
+				</div>
+
+
+				<!-- Form Box -->
+				<div class="col-sm-6 form" >
+
+					<!-- Login Form -->
+					<div class="login form-peice " >
+						<form class="login-form" th:action="@{/signin}" method="post">
+							<div class="form-group">
+								<label for="loginemail">Usuario</label> <input
+									type="text" name="username" id="username" required>
+							</div>
+
+							<div class="form-group">
+								<label for="loginPassword">Contrase&ntilde;a</label> <input
+									type="password" name="password" id="password"
+									required>
+							</div>
+
+							<div class="CTA">
+								<input type="submit" value="Login"> <a href="#"
+									class="switch">Soy nuevo</a>
+							</div>
+						</form>
+					</div>
+					<!-- End Login Form -->
+
+
+					<!-- Signup Form -->
+					<div class="signup form-peice switched" >
+						<form class="signup-form" action="#" method="post">
+
+							<div class="form-group">
+								<label for="name">Nombre Completo</label> <input type="text"
+									name="username" id="name" class="name"> <span
+									class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="email">Correo Electr&oacute;nico</label> <input type="email"
+									name="emailAdress" id="email" class="email"> <span
+									class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="phone">N&uacute;mero telef&oacute;nico - <small>Opcional</small></label>
+								<input type="text" name="phone" id="phone">
+							</div>
+
+							<div class="form-group">
+								<label for="password">Password</label> <input type="password"
+									name="password" id="password" class="pass"> <span
+									class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="passwordCon">Confirm Password</label> <input
+									type="password" name="passwordCon" id="passwordCon"
+									class="passConfirm"> <span class="error"></span>
+							</div>
+
+							<div class="CTA">
+								<input type="submit" value="Signup" id="submit"> <a
+									href="#" class="switch">I have an account</a>
+							</div>
+						</form>
+					</div>
+					<!-- End Signup Form -->
+				</div>
+			</div>
+
+		</section>
+
+	</div>
+
+
+
+
+
+	<script th:src="@{/js/jquery.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/js/login.js}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<main>
+		<section class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">Proveedor</li>
+					<li class="breadcrumb-item">Mis Entregas</li>
+					<li class="breadcrumb-item active" aria-current="page">Detalle
+						de entregas</li>
+				</ol>
+			</nav>
+
+			<div style="display: flex; flex-wrap: wrap;">
+				<div th:each="detallePedido : ${detallePedidos}"
+					class="card border-secondary"
+					style="max-width: 530px; margin: 10px;">
+					<div class="card-header text-white bg-secondary">
+						Pedido Nro <span th:text="${detallePedido.pedido.id}"></span>: <span
+							class="font-weight-bold"></span>
+					</div>
+					<div class="row no-gutters">
+						<div class="col-md-4 align-items-center d-flex">
+						
+							<img
+								th:src="@{${detallePedido.producto.urlImage} + ${detallePedido.producto.id} + '.png'}"
+								class="card-img-top" alt="...">
+						</div>
+						<div class="col-md-8">
+
+							<div class="card-body ">
+
+								<h6 class="card-subtitle ">
+									Estado: <span th:text="${detallePedido.pedido.estadoPedido}"></span>
+								</h6>
+								<div class="d-flex">
+									<div class=" text-right ">Precio unit:</div>
+									<div class=" ml-auto font-weight-bold"
+										th:text="'S/ ' + ${#numbers.formatDecimal(detallePedido.producto.precioVenta, 0, 2)}"></div>
+								</div>
+								<div class="d-flex">
+									<div class=" text-right ">Cantidad:</div>
+									<div class=" ml-auto font-weight-bold"
+										th:text="'x' +${detallePedido.cantidad}"></div>
+								</div>
+								<div class="d-flex">
+									<div class=" text-right ">Precio total:</div>
+									<div class=" ml-auto font-weight-bold"
+										th:text="'S/ ' + ${#numbers.formatDecimal(detallePedido.precio, 0, 2)}"></div>
+								</div>
+								<div class="d-flex">
+									<div class=" text-right ">Fecha:</div>
+									<div class=" ml-auto font-weight-bold"
+										th:text="${#dates.format(detallePedido.pedido.fechaPedido, 'dd-MM-yyyy')}"></div>
+								</div>
+									<div class="d-flex">
+									<div class=" text-right ">Hora:</div>
+									<div class=" ml-auto font-weight-bold"
+										th:text="${#dates.format(detallePedido.pedido.fechaPedido, 'HH:mm')}"></div>
+								</div>
+								<br>
+								<p class="card-text border-top" >
+									<strong>Cliente: </strong> <span th:text="${detallePedido.pedido.cliente.nombres}"></span > <span th:text="${detallePedido.pedido.cliente.apellidos}"></span>
+									<br> <strong>Direcci&oacute;n: </strong> <span th:text="${detallePedido.pedido.cliente.direccion}"></span>
+									<br> <strong>Celular: </strong> <span th:text="${detallePedido.pedido.cliente.celular}"></span> <br>
+									<strong>Correo: </strong> <span th:text="${detallePedido.pedido.cliente.correo}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+						<div class="card-footer">
+				  <a th:if="${{detallePedido.pedido.estadoPedido}} == 'PAGADO'" th:href="@{'/entregas/' + ${detallePedido.pedido.id} + '/enviar'}" class="btn btn-warning">
+				  	<i class="fas fa-shipping-fast"></i> Enviar producto
+				  </a>
+				  <a th:if="${{detallePedido.pedido.estadoPedido}} == 'ENRUTA'" th:href="@{'/entregas/' + ${detallePedido.pedido.id} + '/entregar'}" class="btn btn-success">
+				  	<i class="fas fa-truck-loading"></i> Entregar producto
+				  </a>
+				</div>	
+				</div>
+			</div>
+
+
+		</section>
+	</main>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+
+</body>
+</html>

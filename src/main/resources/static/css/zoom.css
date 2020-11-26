@@ -1,0 +1,13 @@
+.zoom {
+	display: inline-block;
+	position: relative;
+	
+}
+
+#ex2 img:hover {
+	cursor: grab;
+}
+
+#ex2 img:active {
+	cursor: grabbing;
+}
