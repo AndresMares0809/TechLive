@@ -83,7 +83,7 @@
 						<li class="nav-item "><a class="nav-link" href="/cart"
 							sec:authorize="hasRole('ROLE_CUSTOMER')"><i
 								class="fas fa-shopping-cart mr-1"></i>Carrito <span
-								class="badge badge-danger ml-1" style="position: absolute;" th:text="${contador}"></span>
+								class="badge badge-danger ml-1" style="position: absolute;" th:text="${contador}" id="contador"></span>
 						</a></li>
 
 					</ul>
@@ -181,6 +181,11 @@
 		<script th:src="@{/js/countdown.js}"></script>
 		<script th:src="@{/js/catalog.js}"></script>
 		<script th:src="@{/js/toastr.min.js}"></script>
+		<script>
+		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+		</script>
 	</footer>
 </body>
 </html>

@@ -22,64 +22,45 @@
 
 					<div class="p-3 mb-3  rounded gris border">
 						<h5 class=" pl-3 pb-2" style="border-bottom: 1px solid #E1E8EE;">Categor&iacute;as</h5>
-						<div class="list-group" id="list-tab" role="tablist">
-							<a class="list-group-item list-group-item-action"
-								data-toggle="list">Procesador</a> <a
-								class="list-group-item list-group-item-action"
-								data-toggle="list">Tarjeta de Video</a> <a
-								class="list-group-item list-group-item-action"
-								data-toggle="list">Placa Madre</a> <a
-								class="list-group-item list-group-item-action"
-								data-toggle="list">RAM</a> <a
-								class="list-group-item list-group-item-action"
-								data-toggle="list">SSD</a> <a
-								class="list-group-item list-group-item-action"
-								data-toggle="list">HDD</a>
-						</div>
+						<a href="/products/search?keyword=procesador"
+							class="list-group-item list-group-item-action active">Procesador
+						</a> <a href="/products/search?keyword=tarjeta+de+video"
+							class="list-group-item list-group-item-action active">Tarjeta
+							de Video</a> <a href="/products/search?keyword=Placa+Madre"
+							class="list-group-item list-group-item-action active">Placa
+							Madre</a> <a href="/products/search?keyword=ram"
+							class="list-group-item list-group-item-action active">RAM</a> <a
+							href="/products/search?keyword=ssd"
+							class="list-group-item list-group-item-action active">SSD</a> <a
+							href="/products/search?keyword=hdd"
+							class="list-group-item list-group-item-action active">HDD</a>
 					</div>
+
+					<div class="p-3 mb-3  rounded gris border">
+						<h5 class=" pl-3 pb-2" style="border-bottom: 1px solid #E1E8EE;">Marca</h5>
+						<a href="/products/search?keyword=intel"
+							class="list-group-item list-group-item-action active">Intel </a>
+						<a href="/products/search?keyword=AMD"
+							class="list-group-item list-group-item-action active">AMD de
+							Video</a> <a href="/products/search?keyword=NVidia"
+							class="list-group-item list-group-item-action active">NVidia
+							Madre</a> <a href="/products/search?keyword=Kingston"
+							class="list-group-item list-group-item-action active">Kingston</a>
+						<a href="/products/search?keyword=HP"
+							class="list-group-item list-group-item-action active">HP</a>
+					</div>
+
+
+
+
+
+
 					<div class="p-3 mb-3 rounded gris border">
 
-						<h6 class="pl-3 pb-2 ">
-							<i class="fas fa-sliders-h mr-1"></i>FILTROS
-						</h6>
-
-						<div class="marca-btn" role="button" data-toggle="collapse"
-							data-target="#marca-collapse" aria-expanded="false"
-							aria-controls="marca-collapse">
-							Marca<i class="fa fa-chevron-down "></i>
-						</div>
 
 
 
-						<div class="pl-3 collapse show multi-collapse" id="marca-collapse">
-							<div class="list-group" id="list-tab" role="tablist">
-								<div class="custom-control custom-radio mt-1 mb-1">
-									<input type="radio" id="customRadio1" name="customRadio"
-										class="custom-control-input"> <label
-										class="custom-control-label" for="customRadio1">Intel</label>
-								</div>
-								<div class="custom-control custom-radio mt-1 mb-1">
-									<input type="radio" id="customRadio2" name="customRadio"
-										class="custom-control-input"> <label
-										class="custom-control-label" for="customRadio2">AMD</label>
-								</div>
-								<div class="custom-control custom-radio mt-1 mb-1">
-									<input type="radio" id="customRadio3" name="customRadio"
-										class="custom-control-input"> <label
-										class="custom-control-label" for="customRadio3">NVidia</label>
-								</div>
-								<div class="custom-control custom-radio mt-1 mb-1">
-									<input type="radio" id="customRadio4" name="customRadio"
-										class="custom-control-input"> <label
-										class="custom-control-label" for="customRadio4">Kingston</label>
-								</div>
-								<div class="custom-control custom-radio mt-1 mb-1">
-									<input type="radio" id="customRadio5" name="customRadio"
-										class="custom-control-input"> <label
-										class="custom-control-label" for="customRadio5">HP</label>
-								</div>
-							</div>
-						</div>
+	
 						<div class=" pl-3 my-2" style="border-bottom: 1px solid #E1E8EE;"></div>
 						<div class="precio-btn" role="button" data-toggle="collapse"
 							data-target="#precio-collapse" aria-expanded="false"
@@ -113,28 +94,34 @@
 					<div class="card product-grid2" th:each="producto : ${productos}"
 						style="min-width: 200px; max-width: 285px">
 						<div class="product-image2">
-				
-					
-								<img th:src="@{${producto.urlImage} + ${producto.id} + '.png'}">
-						
+
+
+							<img th:src="@{${producto.urlImage} + ${producto.id} + '.png'}">
+
 							<ul class="social">
-								<li><a th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }" data-tip="View"><i class="fa fa-eye"></i></a></li>
+								<li><a
+									th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }"
+									data-tip="View"><i class="fa fa-eye"></i></a></li>
 								<li><a href="#" data-tip="Add to Cart"><i
 										class="fa fa-shopping-cart"></i></a></li>
 							</ul>
 						</div>
-						<div class="card-body" style="padding-bottom: 0">
+						<div class="card-body">
 							<p class="mb-0 text-muted" style="font-size: 13px"
 								th:text="${producto.categoria.denominacion}"></p>
-							<p class="text-muted text-truncate" style="font-size: 16px; margin: 0">
+							<p class="text-muted text-truncate"
+								style="font-size: 16px; margin: 0">
 								<a
 									th:href="@{'/products/' + ${producto.tag} + '-' + ${producto.id} + '/p' }"
 									class="text-reset text-decoration-none font-weight-bold"
-									th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></a>
+									th:text="${producto.marca.nombre} + ' ' + ${producto.descripcion}"
+									data-toggle="tooltip" data-placement="bottom"
+									th:title="${producto.marca.nombre} + ' ' + ${producto.descripcion}"></a>
 							</p>
 							<div class="d-flex" style="font-size: 14px; margin-bottom: 5px">
 								<div>Precio:</div>
-								<div class="ml-auto" th:text="'S/ ' + ${#numbers.formatDecimal(producto.precioVenta, 0, 'COMMA', 2, 'POINT')}"></div>
+								<div class="ml-auto"
+									th:text="'S/ ' + ${#numbers.formatDecimal(producto.precioVenta, 0, 'COMMA', 2, 'POINT')}"></div>
 							</div>
 
 						</div>

@@ -15,6 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import pe.edu.upc.techlive.utils.EstadoPedido;
+
+
+
 @Entity
 @Table(name="pedidos")
 public class Pedido {
@@ -32,7 +36,10 @@ public class Pedido {
 	private Date fechaPedido;
 	
 	@Column(name = "precio_total", nullable = false)
-	private Float precioTotal;	
+	private Double precioTotal;	
+	
+	@Column(name = "estado_pedido")
+	private EstadoPedido estadoPedido;
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<DetallePedido> detallePedidos;
@@ -62,11 +69,11 @@ public class Pedido {
 		this.fechaPedido = fechaPedido;
 	}
 
-	public Float getPrecioTotal() {
+	public Double getPrecioTotal() {
 		return precioTotal;
 	}
 
-	public void setPrecioTotal(Float precioTotal) {
+	public void setPrecioTotal(Double precioTotal) {
 		this.precioTotal = precioTotal;
 	}
 
@@ -76,6 +83,14 @@ public class Pedido {
 
 	public void setDetallePedidos(List<DetallePedido> detallePedidos) {
 		this.detallePedidos = detallePedidos;
+	}
+
+	public EstadoPedido getEstadoPedido() {
+		return estadoPedido;
+	}
+
+	public void setEstadoPedido(EstadoPedido estadoPedido) {
+		this.estadoPedido = estadoPedido;
 	}
 
 	

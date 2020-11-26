@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.techlive.models.services.DetallePedidoService;
 
+
 @Controller
 @RequestMapping("/")
 @SessionAttributes("{contador}")
@@ -20,13 +21,7 @@ public class IndexController {
 	
 	@GetMapping
 	public String index(Model model) {
-		
-		try {
-			Integer contador = detalleService.countByIsConfirmed(false);
-			model.addAttribute("contador", contador);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
 		return "index";
 	}
 	

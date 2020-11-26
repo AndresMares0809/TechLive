@@ -22,7 +22,7 @@ public class AddUserDB implements CommandLineRunner {
 	
 		BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
 		
-		/*Usuario cliente1 = new Usuario();
+		Usuario cliente1 = new Usuario();
 		cliente1.setUsername("cliente1");
 		cliente1.setPassword( bcpe.encode("cliente") );
 		cliente1.setEnable(true);
@@ -94,7 +94,7 @@ public class AddUserDB implements CommandLineRunner {
 		usuarioRepository.save(proveedor2);
 		usuarioRepository.save(proveedor3);
 	
-		*/
+		
 	}
 
 }

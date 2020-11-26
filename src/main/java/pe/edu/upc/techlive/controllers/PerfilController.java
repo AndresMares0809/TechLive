@@ -8,12 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.techlive.models.entities.Cliente;
-import pe.edu.upc.techlive.models.entities.Producto;
 import pe.edu.upc.techlive.models.entities.Vendedor;
 import pe.edu.upc.techlive.security.UsuarioDetails;
 import pe.edu.upc.techlive.models.services.ClienteService;
@@ -22,7 +19,6 @@ import pe.edu.upc.techlive.utils.Segmento;
 
 @Controller
 @RequestMapping("/perfil")
-@SessionAttributes("{producto}")
 public class PerfilController {
 	
 	@Autowired
@@ -32,12 +28,12 @@ public class PerfilController {
 	private VendedorService vendedorService;
 	
 	@GetMapping
-	public String perfil(@ModelAttribute("producto") Producto producto, Model model) {
-		// Obtener el usuarioDetails para obtener los datos de CLiente o proveedor
+	public String perfil( Model model) {
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UsuarioDetails usuarioDetails = (UsuarioDetails)authentication.getPrincipal();
 		
-		// Obtener los datos del CLiente o proveedor 
+	
 		try {
 			if(usuarioDetails.getSegmento() == Segmento.CLIENTE) {
 				Optional<Cliente> optional = clienteService.findById(usuarioDetails.getIdSegmento());
@@ -58,8 +54,7 @@ public class PerfilController {
 			e.printStackTrace();
 		}
 		
-				
-		model.addAttribute("producto", producto);
+			
 		return "perfil/perfil";
 	}
 }
